@@ -6,7 +6,7 @@
 -「EmailJS」 メール送信
 
 ## 参考
-[Formik公式チュートリアル](https://formik.org/docs/tutorial#getfieldprops)
+[Formik公式チュートリアル](https://formik.org/docs/tutorial#getfieldprops)  
 [Formik + EmailJS in ReactJS](https://jhanitish.medium.com/reactjs-emailjs-9cde62546364)
 
 ## TODO
