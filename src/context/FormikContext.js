@@ -1,16 +1,16 @@
-import { useFormik } from "formik";
-import React from "react";
+import { createContext, useContext, useState } from "react";
 
-const FormikContext = React.createContext({});
+//Contextの作成
+const FormContext = createContext();
 
-export const FormikContextPage = ({ children, ...props }) => {
-  const formikStateAndHelpers = useFormik(props);
+export const FormProvider = ({ children }) => {
+  const [formData, setFormData] = useState("ああああああああああああ");
 
   return (
-    <FormikContext.Provider value={formikStateAndHelpers}>
-      {typeof children === "function"
-        ? children(formikStateAndHelpers)
-        : children}
-    </FormikContext.Provider>
+    <FormContext.Provider value={[formData, setFormData]}>
+      {children}
+    </FormContext.Provider>
   );
 };
+
+export const useFormContext = () => useContext(FormContext);

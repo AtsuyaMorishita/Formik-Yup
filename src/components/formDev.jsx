@@ -1,9 +1,38 @@
-import { Formik, ErrorMessage, Field, Form, useField } from "formik";
-import React from "react";
+import { Formik, ErrorMessage, Field, Form, useField, FastField } from "formik";
+import React, { useContext, useRef } from "react";
 import * as Yup from "yup";
 import "./formDev.css";
+import emailjs from "@emailjs/browser";
+import { useFormContext } from "../context/FormikContext";
 
 const FormDev = () => {
+  //設定したものを取得する
+  const [formData, setFormData] = useFormContext();
+
+  const handleSubmit = (values) => {
+    //emailjsでEメールを送信する処理
+    try {
+      emailjs
+        .send(
+          process.env.REACT_APP_SERVICE_ID,
+          process.env.REACT_APP_TEMPLATE_ID,
+          values,
+          process.env.REACT_APP_PUBLIC_KEY
+        )
+        .then(async (result) => {
+          await setFormData(
+            "ここにはグローバルで使えるフォームデータが格納される想定です。"
+          );
+          await console.log("contextに保存されたformデータ", formData);
+          await console.log("送信完了時のメッセージ", result.text);
+        });
+    } catch (err) {
+      console.log("送信失敗時のメッセージ", err);
+    } finally {
+      console.log("contextに保存されたformデータ", formData);
+    }
+  };
+
   const MyTextInput = ({ label, ...props }) => {
     const [field, meta] = useField(props);
     return (
@@ -47,7 +76,7 @@ const FormDev = () => {
 
   return (
     <>
-      <h1>FormikとYupでフォームを作成します</h1>
+      <h1>React×Formik×Yup×Emailjs</h1>
       <Formik
         initialValues={{
           firstName: "",
@@ -77,10 +106,7 @@ const FormDev = () => {
             .required("Required"),
         })}
         onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+          handleSubmit(values);
         }}
       >
         <Form className="aaa">
