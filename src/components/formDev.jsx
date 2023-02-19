@@ -3,13 +3,17 @@ import React, { useContext, useRef } from "react";
 import * as Yup from "yup";
 import "./formDev.css";
 import emailjs from "@emailjs/browser";
-import { useFormContext } from "../context/FormikContext";
+import { FormContext } from "../context/FormikContext";
 
 const FormDev = () => {
   //設定したものを取得する
-  const [formData, setFormData] = useFormContext();
+  // const [formData, setFormData] = useFormContext();
+  const [formData, setFormData] = useContext(FormContext);
+
+  console.log("contextの値", formData);
 
   const handleSubmit = (values) => {
+    console.log("valuesの値", values);
     //emailjsでEメールを送信する処理
     try {
       emailjs
@@ -19,12 +23,9 @@ const FormDev = () => {
           values,
           process.env.REACT_APP_PUBLIC_KEY
         )
-        .then(async (result) => {
-          await setFormData(
-            "ここにはグローバルで使えるフォームデータが格納される想定です。"
-          );
-          await console.log("contextに保存されたformデータ", formData);
-          await console.log("送信完了時のメッセージ", result.text);
+        .then((result) => {
+          setFormData(values);
+          console.log("送信完了時のメッセージ", result.text);
         });
     } catch (err) {
       console.log("送信失敗時のメッセージ", err);

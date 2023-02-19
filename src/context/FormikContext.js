@@ -1,10 +1,10 @@
 import { createContext, useContext, useState } from "react";
 
 //Contextの作成
-const FormContext = createContext();
+export const FormContext = createContext();
 
 export const FormProvider = ({ children }) => {
-  const [formData, setFormData] = useState("ああああああああああああ");
+  const [formData, setFormData] = useState({});
 
   return (
     <FormContext.Provider value={[formData, setFormData]}>
@@ -12,5 +12,3 @@ export const FormProvider = ({ children }) => {
     </FormContext.Provider>
   );
 };
-
-export const useFormContext = () => useContext(FormContext);

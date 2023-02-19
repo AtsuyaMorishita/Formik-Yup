@@ -11,7 +11,9 @@
 [Emailjs React](https://www.emailjs.com/docs/examples/reactjs/)  
 
 ## TODO
-- contextでフォームの情報を保持して確認画面に表示させる  
-- 確認画面と完了画面へのページ遷移  
+- contextでフォームの情報を保持する  
+- 確認画面への遷移  
+- 確認画面でフォーム情報を表示させる  
+- 完了画面への遷移  
 - Yupバリデーションの記述をファイルを分ける  
 - vercelへデプロイ  
